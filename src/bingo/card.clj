@@ -8,3 +8,9 @@
 
 (defn create []
   (gen/generate generator))
+
+(defn bingo? [card numbers]
+  (->> card
+       vals
+       flatten
+       (every? (set numbers))))
