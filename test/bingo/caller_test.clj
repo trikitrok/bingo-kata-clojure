@@ -4,14 +4,13 @@
     [bingo.caller :as caller]))
 
 (deftest called-numbers
-  (testing "the number is between 1 and 75 inclusive"
-    (let [called-numbers (atom #{})]
-      (let [number (caller/call-number)]
-        (is (>= 75 number 1))
-        (swap! called-numbers conj number))
-      (let [number (caller/call-number)]
-        (is (>= 75 number 1))
-        (is (not (@called-numbers number)))
-        (swap! called-numbers conj number)))))
+  (testing "the numbers are between 1 and 75 inclusive and are different each time"
+    (caller/reset-numbers-bag!)
+    (let [number (caller/call-number!)]
+      (is (>= 75 number 1))
+      (is (not (caller/in-bag? number))))
+    (let [number (caller/call-number!)]
+      (is (>= 75 number 1))
+      (is (not (caller/in-bag? number))))))
 
 
