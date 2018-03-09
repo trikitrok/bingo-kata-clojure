@@ -5,6 +5,13 @@
 
 (deftest called-numbers
   (testing "the number is between 1 and 75 inclusive"
-    (is (>= 75 (caller/call-number) 1))))
+    (let [called-numbers (atom #{})]
+      (let [number (caller/call-number)]
+        (is (>= 75 number 1))
+        (swap! called-numbers conj number))
+      (let [number (caller/call-number)]
+        (is (>= 75 number 1))
+        (is (not (@called-numbers number)))
+        (swap! called-numbers conj number)))))
 
 
