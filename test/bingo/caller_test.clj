@@ -8,7 +8,7 @@
   (is (not (caller/in-bag? number))))
 
 (deftest called-numbers
-  (testing "the numbers are between 1 and 75 inclusive and are different each time"
+  (testing "the called numbers are between 1 and 75 inclusive and are different each time"
     (caller/reset-numbers-bag!)
     (check (caller/call-number!))
     (check (caller/call-number!)))
@@ -18,4 +18,3 @@
       (dotimes [_ 75]
         (swap! called-numbers conj (caller/call-number!)))
       (is (= @called-numbers (set (range 1 76)))))))
-
